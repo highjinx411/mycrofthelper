@@ -1,0 +1,15 @@
+body {
+	font-family: Lato;
+}
+
+.navbar-default .navbar-brand {
+	color: #22A7F0;
+}
+
+.navbar-default .navbar-nav>.active>a {
+	color: #2C3E50;
+}
+
+h2 {
+	color: #22A7F0;
+}
