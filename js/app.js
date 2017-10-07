@@ -17,7 +17,8 @@ console.log("wss://"+ip+"/core")
  
 socket.onopen = function(){  
   console.log("connected");
-  response.append("Hello, how may I help you?") 
+  response.append("Hello, how may I help you?")
+  response.append($('<br/>')); 
 }; 
 
 socket.onmessage = function (message) {
