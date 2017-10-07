@@ -19,6 +19,17 @@ socket.onopen = function(){
   console.log("connected");
   response.append("Hello how may I help you?")
   response.append($('<br/>'));
+  response.append("Some things I can answer are:")
+  response.append($('<br/>'));
+  response.append($('<br/>'));
+  response.append("What time is it")
+  response.append($('<br/>'));
+  response.append("What is the weather")
+  response.append($('<br/>'));
+  response.append("Where is the documentation")
+  response.append($('<br/>'));
+  response.append("Tell me a joke")
+  response.append($('<br/>'));
 }; 
 
 socket.onmessage = function (message) {
