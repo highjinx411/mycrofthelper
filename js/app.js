@@ -9,35 +9,40 @@ function set_ip(val)
 
 $(document).ready(function(){
 
-var received = $('#received');
+var response = $('#response');
 
 var socket = new WebSocket("wss://"+ip+"/core");
 console.log("wss://"+ip+"/core")
 // var socket = new WebSocket("wss://localhost/core");
  
 socket.onopen = function(){  
-  console.log("connected"); 
+  console.log("connected");
+  response.append("Hello, how may I help you?") 
 }; 
 
 socket.onmessage = function (message) {
   console.log("receiving: " + message.data);
-  received.append(message.data);
-
-  var msg = message.data.substr(0, 1);
-  console.log("The message data is:" + message.data)
-  if (msg == "-")
+  if (message.data.indexOf('expect_response') >=0)
   {
-  // received.append($("#received").css({"color": "#3498D8"}));
-  received.append($("#received").css({"color": "#666666"}));
-  received.append($('<br/>'));
-  } else {
-  // received.append($("#received").css({"color": "#35495d"}));
-  received.append($("#received").css({"color": "#999999"}));
-  received.append($('<br/>'));
+    console.log("This is my testing: " + message.data)
+    var msg = message.data.slice(50, -37);
+    response.append(msg)
+    console.log("The message data is:" + message.data)
+    console.log("This is the msg: " + msg)
+    if (msg)
+    {
+    // received.append($("#received").css({"color": "#3498D8"}));
+    response.append($("#received").css({"color": "#666666"}));
+    response.append($('<br/>'));
+    } else {
+    // received.append($("#received").css({"color": "#35495d"}));
+    response.append($("#received").css({"color": "#999999"}));
+    response.append($('<br/>'));
+    }
+
+    $("#response").scrollTop($("#response")[0].scrollHeight);
   }
-
-  $("#received").scrollTop($("#received")[0].scrollHeight);
-
+  
 };
 
 socket.onclose = function(){
