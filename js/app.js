@@ -67,7 +67,7 @@ $("#cmd_send").click(function(ev){
 });
 
 $('#clear').click(function(){
-  received.empty();
+  response.empty();
 });
 
 $('#stop').click(function(){
