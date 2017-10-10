@@ -3,7 +3,7 @@ var ip = "mycroft.lackey.io"
 function set_ip(val)
 {
     ip=val
-    console.log("New ip 1="+ ip)
+    console.log("New ip ="+ ip)
 }
 
 
