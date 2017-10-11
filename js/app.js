@@ -34,6 +34,7 @@ socket.onopen = function(){
 
 socket.onmessage = function (message) {
   console.log("receiving: " + message.data);
+  
   if (message.data.indexOf('expect_response') >=0)
   {
     console.log("This is my testing: " + message.data)

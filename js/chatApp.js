@@ -6,6 +6,15 @@ app.controller('ChatController', function ($scope){
 	$scope.Responses = [];
 	$scope.ChatText = "";
 	$scope.ChatStatus = "Not Connected";
+	
+	//var response = {data: {utterance:"HelloWord"},type:"local",classText:"btm-left-in"};
+	//var response2 = {data: {utterance:"Hello to you too"},type:"remote",classText:"btm-right-in"};
+	//var response3 = {data: {utterance:"Sooo what's happening?"},type:"local",classText:"btm-left-in"};
+	//var response4 = {data: {utterance:"Not much just chillin"},type:"remote",classText:"btm-right-in"};
+	//$scope.Responses.push(response);
+	//$scope.Responses.push(response2);
+	//$scope.Responses.push(response3);
+	//$scope.Responses.push(response4);
 	//$scope.socket  = null;
 	try{
 	    var socket = new WebSocket("wss://"+$scope.ConnectionIP+"/core");
@@ -21,6 +30,8 @@ app.controller('ChatController', function ($scope){
 		    var response = JSON.parse(message.data);
 			if (response.data.expect_response !== undefined)
 			{				 
+		        response.type = "remote";
+				response.classText = "btm-right-in";
 				$scope.Responses.push(response);	
                 $scope.$apply();				
 			}
@@ -30,8 +41,7 @@ app.controller('ChatController', function ($scope){
             $scope.ChatStatus = "Not Connected";
   		    console.log("disconnected"); 
 			$scope.$apply();
-        };      
-		//$scope.socket = socket;
+        };      		
   }
 	catch (e)
 	{
@@ -57,14 +67,15 @@ app.controller('ChatController', function ($scope){
 	};
 	
 	$scope.Stop = function (){
-		sendMessage({ 'data' : 'stop'});
+		sendMessage("stop");
 	};
 	
 	var sendMessage = function(message){
 		if($scope.ChatStatus == "Connected")
-		{		
-	         console.log("sending:" + message.data);
-             var mycroft_data = '{"utterances": ["' + message.data + '"]}'
+		{	var response = {data: {utterance:message},type:"local",classText:"btm-left-in"};
+             $scope.Response.push(response);	
+	         console.log("sending:" + message);			 
+             var mycroft_data = '{"utterances": ["' + message + '"]}'
              var mycroft_msg = '{"type": "recognizer_loop:utterance", "data": ' + mycroft_data + '}'
              socket.send(mycroft_msg);
 		}
@@ -75,7 +86,7 @@ app.controller('ChatController', function ($scope){
 	};
 	
 	$scope.Submit = function(){
-	    sendMessage({data: $scope.ChatText});   
+	    sendMessage($scope.ChatText);   
 	    $scope.ChatText = "";
 	};
 	
