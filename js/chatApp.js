@@ -73,7 +73,7 @@ app.controller('ChatController', function ($scope){
 	var sendMessage = function(message){
 		if($scope.ChatStatus == "Connected")
 		{	var response = {data: {utterance:message},type:"local",classText:"btm-left-in"};
-             $scope.Response.push(response);	
+             $scope.Responses.push(response);	
 	         console.log("sending:" + message);			 
              var mycroft_data = '{"utterances": ["' + message + '"]}'
              var mycroft_msg = '{"type": "recognizer_loop:utterance", "data": ' + mycroft_data + '}'
